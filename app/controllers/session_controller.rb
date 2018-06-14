@@ -21,7 +21,8 @@ class SessionController < ApplicationController
     User.find_or_create_by(provider: auth_hash['provider'], uid: auth_hash['uid']) do |user|
       user.email = auth_hash['info']['email']
       user.name = auth_hash['info']['name']
-      user.pubilc_repos = auth_hash['extra']['raw_info']['public_repos']
+      user.username =  auth_hash['extra']['raw_info']['login']
+      user.public_repos = auth_hash['extra']['raw_info']['public_repos']
     end
   end
 

@@ -5,8 +5,8 @@ class CreateUsers < ActiveRecord::Migration[5.1]
       t.string :name
       t.string :uid
       t.string :provider
-      t.integer :pubilc_repos
-
+      t.integer :public_repos
+      t.string :username
       t.timestamps
     end
   end

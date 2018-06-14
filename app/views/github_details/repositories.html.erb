@@ -1,1 +1,4 @@
+<%= @repositories.each do |repo| %>
+<p><%= link_to repo.name %></p>
+<% end %>
 <%= link_to "Logout", :logout %>
