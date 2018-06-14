@@ -12,8 +12,9 @@ class Repository::RepositoryDetailsIntr < ActiveInteraction::Base
   # create entry for repositories if not present in database
   def create_repositories
     present_repo_ids = user.repositories.pluck(:repo_id)
-    repo_details = repositories.inject([]) do |repo_hash, repo|
-      repo_hash << get_repo_hash(repo) unless present_repo_ids.include?(repo['id'].to_s)
+    repo_details = []
+    repositories.each do |repo|
+      repo_details << get_repo_hash(repo) unless present_repo_ids.include?(repo['id'].to_s)
     end
     Repository.bulk_insert values: repo_details
   end

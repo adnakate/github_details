@@ -12,8 +12,9 @@ class Repository::CommitsIntr < ActiveInteraction::Base
   # create entry for commits if not present in database
   def create_commits
     present_commits = user.repositories.find_by(name: repository_name).commits.pluck(:sha)
-    commits_details = commits.inject([]) do |commits_hash, commit|
-      commits_hash << get_commit_hash(commit) unless present_commits.include?(commit['sha'])
+    commits_details = []
+    commits.each do |commit|
+      commits_details << get_commit_hash(commit) unless present_commits.include?(commit['sha'])
     end
     Commit.bulk_insert values: commits_details
   end
