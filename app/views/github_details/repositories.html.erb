@@ -1,4 +1,6 @@
-<%= @repositories.each do |repo| %>
-<p><%= link_to repo.name %></p>
+<p><strong>Your Repositories</strong></p>
+<% @repositories.each do |repo| %>
+<p><%= link_to repo.name, { controller: "github_details", action: "commits", repo_name: repo.name } %></p>
 <% end %>
-<%= link_to "Logout", :logout %>
+<hr>
+<center><%= link_to "Logout", :logout %></center>

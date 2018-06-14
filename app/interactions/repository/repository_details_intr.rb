@@ -9,7 +9,7 @@ class Repository::RepositoryDetailsIntr < ActiveInteraction::Base
 
   private
 
-  # create entry for repositories in not present in database
+  # create entry for repositories if not present in database
   def create_repositories
     present_repo_ids = user.repositories.pluck(:repo_id)
     repo_details = repositories.inject([]) do |repo_hash, repo|
