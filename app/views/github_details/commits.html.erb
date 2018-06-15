@@ -32,8 +32,7 @@ var line = d3.line()
 var data =  <%= raw @commits.to_json %>
 
 data.forEach(function(d){
- // d.date = parseTime(d.date);
- console.log(d.date)
+  d.date = parseTime(d.date);
 });
 
 data.columns = ["date", "commit_count"];
@@ -91,7 +90,7 @@ data.columns = ["date", "commit_count"];
 //});
 
 function type(d, _, columns) {
-  // d.date = parseTime(d.date);
+  d.date = parseTime(d.date);
   for (var i = 1, n = columns.length, c; i < n; ++i) d[c = columns[i]] = +d[c];
   return d;
 }

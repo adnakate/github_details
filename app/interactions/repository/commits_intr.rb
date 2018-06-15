@@ -31,8 +31,12 @@ class Repository::CommitsIntr < ActiveInteraction::Base
     user_commits = user.repositories.find_by(name: repository_name).commits.group('commit_date').count
     commits_hash = []
     user_commits.each do |commit|
-      commits_hash << { date: "2-Mar-2017", commit_count: commit.last }
+      commits_hash << { date: get_commit_date(commit.first), commit_count: commit.last }
     end
     commits_hash
+  end
+
+  def get_commit_date(commit_date)
+    Date.parse(commit_date.to_s).strftime('%d') + '-'+ Date.parse(commit_date.to_s).strftime('%b') + '-' + Date.parse(commit_date.to_s).strftime('%y')
   end
 end
