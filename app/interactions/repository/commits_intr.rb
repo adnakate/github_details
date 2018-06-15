@@ -5,6 +5,7 @@ class Repository::CommitsIntr < ActiveInteraction::Base
 
   def execute
     create_commits
+    get_commits
   end
 
   private
@@ -20,8 +21,18 @@ class Repository::CommitsIntr < ActiveInteraction::Base
   end
 
   def get_commit_hash(commit) 
-    { sha: commit['sha'], commit_date: commit['commit']['committer']['date'].to_datetime, commit_message: commit['commit']['message'],
+    { sha: commit['sha'], commit_date: commit['commit']['committer']['date'].to_date, commit_message: commit['commit']['message'],
       committer_username: commit['committer']['login'], committer_id: commit['committer']['id'].to_s, user_id: user.id,
       repository_id: user.repositories.find_by(name: repository_name).id }
+  end
+
+  # get user commits
+  def get_commits
+    user_commits = user.repositories.find_by(name: repository_name).commits.group('commit_date').count
+    commits_hash = []
+    user_commits.each do |commit|
+      commits_hash << { date: "2-Mar-2017", commit_count: commit.last }
+    end
+    commits_hash
   end
 end
