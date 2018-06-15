@@ -18,5 +18,7 @@ class GithubDetailsController < ApplicationController
     url = 'https://api.github.com/repos/'
     response = HTTParty.get(url + current_user.username + '/' + params[:repo_name] + '/commits')
     @commits = Repository::CommitsIntr.run!(user: current_user, commits: response.parsed_response, repository_name: params[:repo_name])
+    @repo_name = params[:repo_name]
   end
 end
+

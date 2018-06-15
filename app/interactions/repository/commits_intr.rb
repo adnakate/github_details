@@ -36,6 +36,7 @@ class Repository::CommitsIntr < ActiveInteraction::Base
     commits_hash
   end
 
+  # create date in required format for purpose of making graph
   def get_commit_date(commit_date)
     Date.parse(commit_date.to_s).strftime('%d') + '-'+ Date.parse(commit_date.to_s).strftime('%b') + '-' + Date.parse(commit_date.to_s).strftime('%y')
   end
